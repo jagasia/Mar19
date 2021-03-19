@@ -1,0 +1,280 @@
+Junit
+	test java application
+
+Maven project
+	whenever we create a maven project, there will be a junit module
+
+How to build an application
+	.jar
+	.war
+	.ear
+
+	maven build		this is the command to build an application
+
+how do maven understand that our project is a
+	jar
+	war
+	ear
+
+maven uses pom.xml to understand that
+
+
+maven projects structure
+
+	src/main/java		package for all java code
+	src/main/test		package for all test code
+
+
+Task:
+	Create a maven project "quickstart" archetype
+	add ojdbc dependency in pom.xml
+
+	create a simple jdbc code and test the code
+
+
+
+-------------------
+We have created a dynamic web project already
+that project is not a maven project.
+	we added (dependencies) jar files to the lib folder 
+
+NOW WE ARE GOING TO CONVERT that project into a maven project.	 (REMEMBER TO TAKE A COPY)
+
+Befor that,
+
+Lets see how we can create a dynamic web project and convert it into maven project
+
+
+Task:
+	create a dynamic web project.
+	add jsp file and display hello world
+
+	convert it to maven project
+	in pom.xml 
+		add <dependencies> below <packaging> and above <build>
+	run the project
+
+
+find the corresponding dependencies for the jar files you used in your project and use them in POM.XML file and then remove the jar files from lib folder.
+
+Run the project.
+
+
+
+------------
+Apache Ant 	(build tool)
+	
+	similar to maven. We have to download apache ant	
+	apache-ant-1.10.9
+
+set environment variables
+
+Find the steps to install Apache Ant 
+	1) download
+	2) set up environment
+	3) configuration file (like pom.xml for maven)
+	4) commands to be used in cmd for build and test
+
+<?xml version="1.0"?>
+<project name="fax" basedir="." default="build">
+   <property name="src.dir" value="src"/>
+   <property name="web.dir" value="war"/>
+   <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+   <property name="name" value="fax"/>
+   
+   <path id="master-classpath">
+      <fileset dir="${web.dir}/WEB-INF/lib">
+         <include name="*.jar"/>
+      </fileset>
+      <pathelement path="${build.dir}"/>
+   </path>
+
+   <target name="build" description="Compile source tree java files">
+      <mkdir dir="${build.dir}"/>
+      <javac destdir="${build.dir}" source="1.5" target="1.5">
+         <src path="${src.dir}"/>
+         <classpath refid="master-classpath"/>
+      </javac>
+   </target>
+   
+   <target name="clean" description="Clean output directories">
+      <delete>
+         <fileset dir="${build.dir}">
+            <include name="**/*.class"/>
+         </fileset>
+      </delete>
+   </target>
+</project>
+---------------------------
+Create a project folder
+	and create sub folders like src, bin, lib, images, css, js etc
+	and create the build.xml file
+
+	and execute ant command in cmd
+
+----------------------------------------------
+Git
+
+1) If you have account in github.com, login
+2) else, create a new account
+
+
+How do Git help us?
+	How is it different from other cloud storages like "google drive"?
+
+	Git have support for version control.
+
+	Version control is required when multiple users work on same project or files
+
+Allowing multiple users to collaborate
+
+Download and install Git
+------------------------
+
+1) i am going to clone the repository shared by Deb
+	https://github.com/debanjan300/Team1_Project.git
+	
+	go to the folder where you want to copy the contents of that url
+
+	git clone https://github.com/debanjan300/Team1_Project.git
+
+
+
+
+
+
+
+…or create a new repository on the command line
+echo "# jag19" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/jagasia/jag19.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/jagasia/jag19.git
+git branch -M main
+git push -u origin main
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+
+git clone https://github.com/gautinag/gautinag.git
+
+
+
+
+create a file and type something there
+git init
+git add filename.extension
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/gautinag/gautinag.git
+git push -u origin main
+
+
+
+
+git config --global user.name "John Doe"
+
+git config --global user.email johndoe@example.com
+------------------------------------------------------------------------
+Introducing Hibernate:
+----------------------
+
+Hibernate is a dao framework.
+Helps us to code DAo programs
+
+Data Access Layer
+
+Environment setup:
+	download hibernate jar files
+
+java project:
+	add jar files to build path
+dynamic web project:
+	add jar files to lib folder
+
+(or)
+
+Use maven and add dependencies
+
+1st example only we use "jar" files.
+Later we use only maven project
+
+
+
+
+1) add hibernate jar files
+2) add ojdbc jar files
+
+Let us understand the configuration files used in hibernate:
+why do we need configuration files?
+
+suppose we are uploading our project to server. In server, the connection information may be different.
+we need to change. That change should not require recompilation
+
+remember 
+	oracle.properties file
+	yesterday i uploaded team 1 project. I did not require any change in compiled code
+	only this properties file was modified. which is a text file that needs no compilation
+
+in hibernate, the configuration files are "xml" files
+
+there will be 1 configuration file for a connection with the database
+	driver
+	url
+	username
+	password
+
+that file name is :		hibernate.cfg.xml
+
+3) hibernate.cfg.xml
+
+and then for each entity class, we need only hibernate mapping file
+
+4) movie.hbm.xml
+
+	here, movie is the name of the entity class	(but file name is in small letters)
+
+
+
+1) add hibernate jar files
+2) add ojdbc jar files
+3) hibernate.cfg.xml
+4) movie.hbm.xml
+
+
+
+What is meant by dialect?
+	A language has slight difference in different region called as slang. That is called as dialect
+
+SQL is a language.
+	But Oracle has a slang
+	Mysql has a slang
+
+
+hbm2ddl.auto	
+		create			-	creates tables
+		create-drop		-	drops tables and create
+		update			-	if table does not exist, it creates. If table exists and different from current version, it acts as ALTER TABLE
+
+
+In jdbc, we obtain connection
+
+in hibernate, we obtain a session.
+	WHat is a session?	if we login, then it is a session
+	for login, it will validate the information we have given in hibernate.cfg.xml
+
+how to represent this configuration file?
+	Configuration config=new Configuration();
+	config.configure("hibernate.cfg.xml");
+		
+using configuration object, we can get session factory.
+	from session factory, we can get session.
+
+
+Task:
+	Create an entity class "Actor"
+	and make hibernate to create table.
